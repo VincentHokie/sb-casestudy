@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: safeboda
+  namespace: python-app
+  labels:
+    app: safeboda
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 80
+  selector:
+    app: safeboda
+  type: LoadBalancer

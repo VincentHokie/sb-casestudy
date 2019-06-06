@@ -1,0 +1,4 @@
+.git/
+kube-definitions/
+base.Dockerfile
+Dockerfile

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: safeboda
+  namespace: python-app
+  labels:
+    app: safeboda
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: safeboda
+  template:
+    metadata:
+      labels:
+        app: safeboda
+    spec:
+      containers:
+      - name: my-safeboda-hello-world
+        image: vincentasante/safeboda:latest
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        ports:
+        - containerPort: 80
+        - name: liveness-port
+          containerPort: 80
+
+        livenessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          httpGet:
+            path: /healthz
+            port: liveness-port
